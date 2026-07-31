@@ -1,0 +1,145 @@
+% ============================================================================ %
+%     プリアンブル
+% ============================================================================ %
+\documentclass[
+  10pt,       % フォントサイズ
+  twocolumn   % ２段組（２カラム）
+]{jlreq}      % 使用するフォント？
+
+
+% ---------------------------------------------------------------------------- %
+%     「定義」などの環境の定義
+% ---------------------------------------------------------------------------- %
+\newtheorem{dfn}{定義}
+\newtheorem{lem}{補題}
+\newtheorem{thrm}{定理}
+\newtheorem{pblm}{問題}
+\newtheorem{exmp}{例}
+
+
+% ---------------------------------------------------------------------------- %
+%     数学系の環境の定義
+% ---------------------------------------------------------------------------- %
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{breqn}
+
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}      % 例) \abs{X}            -> |X|
+                                                   %     \abs[\Big]{X}      -> big(|) X big(|)
+                                                   %     \abs*{\frac{a}{b}} -> |a/b|
+\DeclarePairedDelimiter{\set}{\lbrace}{\rbrace}    % 例) \set{a, b}  -> {a, b}
+\newcommand{\true}{\textit{true}}
+\newcommand{\false}{\textit{false}}
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+
+% ---------------------------------------------------------------------------- %
+%     疑似コード関連のコマンド定義
+%       参考サイト
+%         https://jdhao.github.io/2019/09/21/latex_algorithm_pseudo_code/
+% ---------------------------------------------------------------------------- %
+\usepackage[linesnumbered, longend, ruled, vlined]{algorithm2e}
+
+\SetKwInOut{KwIn}{Input}
+\SetKwInOut{KwOut}{Output}
+\newcommand{\Break}{break}
+\newcommand{\Continue}{continue}
+\newcommand{\Call}[2]{\textup{#1}(#2)}          % 例) \Call{hoge}{x, y} -> hoge(x, y)
+\newcommand{\Function}[3]{%                       例) \Function{hoge}{x}{body}
+  \SetKwProg{Fn}{define}{}{end define}%
+  \Fn{\textup{#1(#2)}}{#3}%
+}
+\newcommand{\Goto}{%
+  \SetKw{KwGoto}{goto}%
+  \KwGoto%
+}
+\newcommand{\BMatrix}[1]{%
+  $\begin{bmatrix}%
+    #1%
+  \end{bmatrix}$%
+}
+\newcommand{\Mfunc}[1]{%
+  \textsc{M}(#1)%
+}
+\renewcommand{\algorithmcfname}{アルゴリズム} % Algorithmをアルゴリズムにする（英語を無理やり日本語にする）．
+
+
+% ---------------------------------------------------------------------------- %
+%     キャプションと参照コマンドの定義
+% ---------------------------------------------------------------------------- %
+\newcommand{\secref}[1]{\ref{#1}章}
+\newcommand{\subsecref}[1]{\ref{#1}節}
+\newcommand{\subsubsecref}[1]{\ref{#1}項}
+\newcommand{\figref}[1]{図\ref{#1}} % 図は下に...
+\newcommand{\tblref}[1]{表\ref{#1}} % 表は上に...
+\newcommand{\algref}[1]{アルゴリズム\ref{#1}}
+\newcommand{\coderef}[1]{\ref{#1}行}
+\newcommand{\dfnref}[1]{定義\ref{#1}}
+\newcommand{\lemref}[1]{補題\ref{#1}}
+\newcommand{\thrmref}[1]{定理\ref{#1}}
+\newcommand{\pblmref}[1]{問題\ref{#1}}
+\newcommand{\exmpref}[1]{例\ref{#1}}
+
+
+% ---------------------------------------------------------------------------- %
+%     余白設定
+%       参考サイト
+%         https://cns-guide.sfc.keio.ac.jp/2001/11/5/1.html
+% ---------------------------------------------------------------------------- %
+\setlength{\topmargin}{-2.5cm}  % 各ページの上側の余白．
+\setlength{\textheight}{27cm}
+\setlength{\textwidth}{18.5cm}
+\setlength{\oddsidemargin}{-1.3cm}
+\setlength{\columnsep}{.5cm}
+\catcode`@=\active \def@{\hspace{0.9bp}-\hspace{0.9bp}}
+
+
+% ---------------------------------------------------------------------------- %
+%     タイトル
+% ---------------------------------------------------------------------------- %
+\title{
+  2026年度 研究報告0次案　研究環境のクラウド化 \\
+}
+\author{
+ 田中研究室：佐々木ギリェルミ
+}
+\date{
+  \today  % \todayを書くことでコンパイルした日付が自動入力されます．
+}
+
+
+% ============================================================================ %
+%     本文作成
+% ============================================================================ %
+\begin{document}
+\maketitle  % \begin{document} ~ \end{document}内に\maketitleを書くことで，タイトルがページトップに自動作成されます．
+
+\section{はじめに}\label{sec:Section}  % \label{<任意の文字列>}でラベル付けできます．後から参照するときに自動で番号を振ってくれるので便利です．\labelは後から参照したいものの直後に付けます．
+現在、研究室では Microsoft Teams を使って資料を共有している。しかし、Teams だけでは研究室のメンバー以外と情報を共有しにくいという問題がある。
+また、田中研究室では一人ひとりが毎年別の研究をするのではなく、そのプロジェクトごとに研究を進めている。そのため、卒業する学生から次の学生へ研究内容や環境を引き継ぐ必要がある。
+そこで、本研究では、研究室内に保存されているリソースや開発環境をクラウド上で管理する仕組みを構築することを目的とし、外部の研究者との情報共有を容易にするとともに、研究室内での円滑な引継ぎを実現することを目指した。
+ 
+
+\section{今回までの経緯}\label{sec:Section}  % \label{<任意の文字列>}でラベル付けできます．後から参照するときに自動で番号を振ってくれるので便利です．\labelは後から参照したいものの直後に付けます．
+
+ 研究環境のクラウド化を進めるために、まず研究室に残されている過去17年分の研究データを調査した。対象となったのは139名分の学生の研究記録であり、研究室サーバー内に保存されているユーザーIDと、それぞれの研究内容の対応付けを行った。
+
+ユーザーIDのみでは研究内容を特定できない場合には、サーバー内のディレクトリを確認し、保存されているプログラムや資料から研究内容を調査した。これにより、過去の研究成果を整理し、後から参照しやすい形にまとめた。
+
+次に、調査した研究内容を分析し、関連するテーマごとに分類を行った。その結果、研究テーマを17のグループに整理することができた。
+
+最後に、分類した各研究テーマについてGitHub上にリポジトリを作成し、研究資料やソースコードを保存・管理できる環境を構築した。これにより、研究データの一元管理が可能となり、外部研究者との共有や学生間の円滑な引継ぎを行える基盤を整備した。
+
+%\section{GitHubの概要}\label{sec:Section}  % \label{<任意の文字列>}でラベル付けできます．後から参照するときに自動で番号を振ってくれるので便利です．\labelは後から参照したいものの直後に付けます．
+%プログラムのソースコードを保存・共有し、複数人で共同開発を行うためのオンラインプラットフォーム。クラウド上でコードの変更履歴や、オープンソースプロジェクトの管理を行う。
+%個人・企業でのソフトウェア開発に広く利用されている。
+
+
+   
+
+\end{document}
+
